@@ -1,0 +1,1138 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>AV Future — Dana G. Saar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<style>
+/* ── TOKENS ─────────────────────────────────────────────── */
+:root {
+  --navy:   #1a2e4a;
+  --navy2:  #0e1d30;
+  --blue:   #005aa7;
+  --blue2:  #0077cc;
+  --orange: #f57c00;
+  --gold:   #f9c744;
+  --bg:     #f2f4f7;
+  --bg2:    #e8ecf2;
+  --surface:#ffffff;
+  --fg:     #1a2e4a;
+  --fg2:    #455a73;
+  --fg3:    #8899aa;
+  --border: #d0dae6;
+  --shadow: 0 2px 16px rgba(26,46,74,.10);
+  --r:      6px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:     #0e1d30;
+    --bg2:    #1a2e4a;
+    --surface:#1e3352;
+    --fg:     #e8ecf2;
+    --fg2:    #a0b4cc;
+    --fg3:    #607080;
+    --border: #2a4060;
+    --shadow: 0 2px 16px rgba(0,0,0,.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:     #0e1d30;
+  --bg2:    #1a2e4a;
+  --surface:#1e3352;
+  --fg:     #e8ecf2;
+  --fg2:    #a0b4cc;
+  --fg3:    #607080;
+  --border: #2a4060;
+  --shadow: 0 2px 16px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+
+/* ── RESET & BASE ────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 17px;
+  line-height: 1.7;
+  padding-inline: 0;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--blue2); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── TYPOGRAPHY ──────────────────────────────────────────── */
+h1, h2, h3, h4, .syne { font-family: 'Syne', sans-serif; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; line-height: 1.1; text-wrap: balance; }
+h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; text-wrap: balance; }
+h3 { font-size: 1.15rem; font-weight: 600; }
+.label {
+  font-family: 'Syne', sans-serif;
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--orange);
+}
+.mono { font-family: 'JetBrains Mono', monospace; font-size: .85em; }
+
+/* ── LAYOUT UTILITIES ────────────────────────────────────── */
+.container { max-width: 1100px; margin-inline: auto; padding-inline: clamp(16px,4vw,48px); }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%,320px),1fr)); gap: 1.5rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%,280px),1fr)); gap: 1.5rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%,220px),1fr)); gap: 1rem; }
+.flex { display: flex; }
+.gap-sm { gap: .75rem; }
+.gap { gap: 1.5rem; }
+section { padding-block: clamp(3rem,6vw,5rem); }
+.divider { height: 3px; background: linear-gradient(90deg,var(--orange),var(--gold),transparent); border: none; margin-block: 0; }
+
+/* ── THEME TOGGLE ────────────────────────────────────────── */
+#theme-btn {
+  background: none; border: 1.5px solid var(--border);
+  border-radius: 20px; padding: .3rem .75rem;
+  font-family: 'Syne', sans-serif; font-size: .8rem; font-weight: 600;
+  color: var(--fg2); cursor: pointer; transition: all .2s;
+}
+#theme-btn:hover { border-color: var(--orange); color: var(--orange); }
+
+/* ── TOP NAV ─────────────────────────────────────────────── */
+#topbar {
+  position: sticky; top: env(safe-area-inset-top,0px); z-index: 100;
+  background: var(--navy2);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  padding-block: .6rem;
+}
+.topbar-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap;
+}
+.site-logo {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem;
+  color: #fff; white-space: nowrap; flex-shrink: 0;
+}
+.site-logo span { color: var(--orange); }
+nav { display: flex; gap: .1rem; flex-wrap: wrap; }
+nav a {
+  font-family: 'Syne', sans-serif; font-size: .8rem; font-weight: 600;
+  color: rgba(255,255,255,.65); padding: .35rem .7rem;
+  border-radius: 4px; transition: all .15s; white-space: nowrap;
+  text-decoration: none;
+}
+nav a:hover, nav a.active { background: rgba(245,124,0,.15); color: var(--orange); }
+.nav-right { display: flex; align-items: center; gap: .75rem; flex-shrink: 0; }
+
+/* ── HERO ────────────────────────────────────────────────── */
+#hero {
+  background: var(--navy2);
+  overflow: hidden; position: relative;
+  padding-block: clamp(3.5rem,8vw,6rem) clamp(2.5rem,6vw,4.5rem);
+}
+#hero-canvas {
+  position: absolute; inset: 0; opacity: .35;
+  pointer-events: none;
+}
+.hero-content {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 2.5rem; align-items: start;
+}
+@media (max-width: 680px) { .hero-content { grid-template-columns: 1fr; } }
+.hero-kicker { color: var(--orange); margin-bottom: .75rem; }
+.hero h1 { color: #fff; margin-bottom: 1.1rem; }
+.hero-sub {
+  font-size: 1.1rem; color: rgba(255,255,255,.65);
+  max-width: 60ch; margin-bottom: 2rem;
+}
+.hero-btns { display: flex; gap: .75rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-family: 'Syne', sans-serif; font-size: .85rem; font-weight: 700;
+  padding: .65rem 1.4rem; border-radius: var(--r); cursor: pointer;
+  transition: all .18s; text-decoration: none; border: none;
+  letter-spacing: .03em;
+}
+.btn-primary { background: var(--orange); color: #fff; }
+.btn-primary:hover { background: #d96a00; text-decoration: none; }
+.btn-outline { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.35); }
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); text-decoration: none; }
+.hero-stats {
+  display: flex; flex-direction: column; gap: .75rem;
+  min-width: 200px;
+}
+.stat-card {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--r); padding: .85rem 1.1rem;
+  text-align: center;
+}
+.stat-num {
+  font-family: 'Syne', sans-serif; font-size: 1.9rem; font-weight: 800;
+  color: var(--gold); display: block; line-height: 1;
+}
+.stat-lbl { font-size: .78rem; color: rgba(255,255,255,.55); margin-top: .25rem; }
+
+/* ── SECTION HEADINGS ────────────────────────────────────── */
+.sec-head { margin-bottom: 2.5rem; }
+.sec-head .label { margin-bottom: .4rem; display: block; }
+.sec-head h2 { margin-bottom: .6rem; }
+.sec-head p { color: var(--fg2); max-width: 62ch; }
+
+/* ── TAB SYSTEM ──────────────────────────────────────────── */
+.tabs-wrap { margin-bottom: 2rem; }
+.tabs {
+  display: flex; gap: .25rem; flex-wrap: wrap;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0;
+}
+.tab-btn {
+  font-family: 'Syne', sans-serif; font-size: .82rem; font-weight: 700;
+  padding: .6rem 1.1rem; background: none; border: none;
+  color: var(--fg2); cursor: pointer; border-radius: 4px 4px 0 0;
+  border-bottom: 3px solid transparent; margin-bottom: -2px;
+  transition: all .15s; letter-spacing: .03em;
+}
+.tab-btn:hover { color: var(--fg); }
+.tab-btn.active { color: var(--orange); border-bottom-color: var(--orange); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── CARDS ───────────────────────────────────────────────── */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: calc(var(--r)*1.5); padding: 1.5rem;
+  box-shadow: var(--shadow); transition: box-shadow .2s;
+}
+.card:hover { box-shadow: 0 4px 24px rgba(0,90,167,.12); }
+.card-icon {
+  font-size: 1.6rem; margin-bottom: .75rem; display: block;
+}
+.card h3 { margin-bottom: .4rem; }
+.card p { color: var(--fg2); font-size: .95rem; }
+
+/* ── CHAPTER ACCORDION ───────────────────────────────────── */
+.chapter-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%,320px),1fr));
+  gap: .75rem;
+}
+.chapter-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); overflow: hidden; transition: border-color .2s;
+}
+.chapter-item:hover { border-color: var(--blue2); }
+.chapter-btn {
+  width: 100%; display: flex; align-items: center; gap: .9rem;
+  background: none; border: none; padding: .95rem 1.1rem;
+  cursor: pointer; text-align: left; color: var(--fg);
+}
+.ch-num {
+  font-family: 'Syne', sans-serif; font-size: .75rem; font-weight: 800;
+  color: var(--orange); min-width: 2rem; letter-spacing: .04em;
+}
+.ch-title {
+  font-family: 'Syne', sans-serif; font-size: .9rem; font-weight: 600;
+  flex: 1;
+}
+.ch-arrow {
+  font-size: .75rem; color: var(--fg3); transition: transform .2s; flex-shrink: 0;
+}
+.chapter-item.open .ch-arrow { transform: rotate(90deg); }
+.chapter-body {
+  display: none; padding: 0 1.1rem 1rem 3.9rem;
+  font-size: .9rem; color: var(--fg2); line-height: 1.6;
+  border-top: 1px solid var(--border);
+}
+.chapter-body.open { display: block; }
+.ch-tags { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .65rem; }
+.ch-tag {
+  font-family: 'Syne', sans-serif; font-size: .68rem; font-weight: 600;
+  padding: .18rem .55rem; border-radius: 20px;
+  background: rgba(0,90,167,.1); color: var(--blue2);
+}
+
+/* ── EXEC SUMMARY ────────────────────────────────────────── */
+.es-intro {
+  background: var(--navy);
+  color: #fff;
+  border-radius: calc(var(--r)*2);
+  padding: 2.5rem; margin-bottom: 2rem;
+}
+.es-intro h3 { color: var(--gold); margin-bottom: .75rem; }
+.es-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%,300px),1fr));
+  gap: 1rem;
+}
+.es-item {
+  background: var(--surface); border-left: 3px solid var(--orange);
+  border-radius: 0 var(--r) var(--r) 0;
+  padding: 1rem 1.1rem;
+}
+.es-item .ch-num { display: block; margin-bottom: .2rem; }
+.es-item h4 { font-family: 'Syne', sans-serif; font-size: .9rem; font-weight: 700; margin-bottom: .35rem; }
+.es-item p { font-size: .88rem; color: var(--fg2); }
+
+/* ── DOWNLOADS ───────────────────────────────────────────── */
+.dl-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: calc(var(--r)*1.5); padding: 1.5rem;
+  display: flex; gap: 1.2rem; align-items: flex-start;
+  box-shadow: var(--shadow); transition: box-shadow .2s;
+}
+.dl-card:hover { box-shadow: 0 4px 24px rgba(0,90,167,.12); }
+.dl-icon {
+  font-size: 2rem; min-width: 2.5rem; text-align: center;
+}
+.dl-meta { flex: 1; }
+.dl-meta h3 { font-size: 1rem; margin-bottom: .3rem; }
+.dl-meta p { font-size: .88rem; color: var(--fg2); margin-bottom: .75rem; }
+.dl-meta .label { display: inline; margin-right: .5rem; }
+.dl-badge {
+  display: inline-block; font-family: 'Syne', sans-serif;
+  font-size: .7rem; font-weight: 700; padding: .15rem .55rem;
+  border-radius: 20px; border: 1px solid var(--border); color: var(--fg2);
+  margin-right: .35rem;
+}
+.dl-btn {
+  margin-top: .85rem;
+  font-size: .82rem; padding: .5rem 1.1rem;
+}
+
+/* ── NEWS ────────────────────────────────────────────────── */
+.news-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: calc(var(--r)*1.5); overflow: hidden;
+  box-shadow: var(--shadow); display: flex; flex-direction: column;
+}
+.news-img {
+  height: 140px; position: relative; overflow: hidden;
+}
+.news-img-inner {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3.5rem; background: var(--navy);
+}
+.news-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
+.news-body .label { margin-bottom: .4rem; }
+.news-body h3 { font-size: 1rem; margin-bottom: .4rem; }
+.news-body p { font-size: .88rem; color: var(--fg2); flex: 1; }
+.news-meta { display: flex; justify-content: space-between; align-items: center; margin-top: .9rem; }
+.news-date { font-size: .78rem; color: var(--fg3); font-family: 'JetBrains Mono', monospace; }
+.read-more {
+  font-family: 'Syne', sans-serif; font-size: .78rem; font-weight: 700;
+  color: var(--orange);
+}
+
+/* ── ABOUT ───────────────────────────────────────────────── */
+.about-layout { display: grid; grid-template-columns: 260px 1fr; gap: 3rem; align-items: start; }
+@media (max-width: 700px) { .about-layout { grid-template-columns: 1fr; } }
+.author-aside {
+  background: var(--navy); border-radius: calc(var(--r)*2);
+  padding: 2rem; text-align: center; color: #fff;
+}
+.author-avatar {
+  width: 120px; height: 120px; border-radius: 50%;
+  background: linear-gradient(135deg,var(--blue),var(--orange));
+  margin: 0 auto 1rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem;
+}
+.author-aside h3 { font-size: 1.1rem; color: var(--gold); }
+.author-aside .role { font-size: .85rem; color: rgba(255,255,255,.6); margin-top: .3rem; }
+.author-creds {
+  margin-top: 1.25rem; display: flex; flex-direction: column; gap: .5rem;
+}
+.cred {
+  background: rgba(255,255,255,.07); border-radius: var(--r);
+  padding: .5rem .75rem; font-size: .82rem; color: rgba(255,255,255,.75);
+}
+.about-body h2 { margin-bottom: 1rem; }
+.about-body p { color: var(--fg2); margin-bottom: 1rem; max-width: 65ch; }
+
+/* ── SPEAKING / CONTACT ──────────────────────────────────── */
+.contact-row {
+  background: linear-gradient(135deg,var(--navy),var(--navy2));
+  border-radius: calc(var(--r)*2); padding: 2.5rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;
+}
+@media (max-width: 640px) { .contact-row { grid-template-columns: 1fr; } }
+.contact-row h3 { color: var(--gold); margin-bottom: .75rem; font-size: 1.2rem; }
+.contact-row p { color: rgba(255,255,255,.65); font-size: .95rem; margin-bottom: 1.1rem; }
+.contact-detail {
+  display: flex; align-items: center; gap: .6rem;
+  color: rgba(255,255,255,.8); font-size: .9rem; margin-bottom: .5rem;
+}
+.contact-detail strong { color: #fff; font-family: 'Syne', sans-serif; font-size: .85rem; }
+
+/* ── QUOTE PULL ──────────────────────────────────────────── */
+.pull-quote {
+  border-left: 4px solid var(--orange);
+  padding: 1.2rem 1.5rem; margin-block: 2rem;
+  background: var(--bg2); border-radius: 0 var(--r) var(--r) 0;
+}
+.pull-quote blockquote {
+  font-size: 1.1rem; font-style: italic; color: var(--fg);
+  margin-bottom: .4rem;
+}
+.pull-quote cite { font-size: .82rem; color: var(--fg3); }
+
+/* ── HOSTING BOX ─────────────────────────────────────────── */
+.hosting-option {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: calc(var(--r)*1.5); padding: 1.25rem 1.4rem;
+  display: flex; gap: 1rem; align-items: flex-start;
+}
+.hosting-option.recommended { border-color: var(--orange); }
+.hosting-badge {
+  font-family: 'Syne', sans-serif; font-size: .68rem; font-weight: 700;
+  padding: .15rem .55rem; border-radius: 20px;
+  background: var(--orange); color: #fff; white-space: nowrap;
+  margin-top: .2rem;
+}
+.hosting-option h4 { font-family: 'Syne', sans-serif; margin-bottom: .25rem; }
+.hosting-option p { font-size: .88rem; color: var(--fg2); }
+.cost { font-family: 'JetBrains Mono', monospace; font-size: .85rem; color: var(--blue2); font-weight: 500; }
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+footer {
+  background: var(--navy2); color: rgba(255,255,255,.5);
+  padding-block: 2.5rem; font-size: .88rem;
+  border-top: 2px solid var(--orange);
+}
+.footer-inner {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-brand { font-family: 'Syne', sans-serif; color: #fff; font-weight: 700; }
+.footer-brand span { color: var(--orange); }
+
+/* ── RESPONSIVE NAV ──────────────────────────────────────── */
+@media (max-width: 820px) {
+  nav a { font-size: .75rem; padding: .3rem .5rem; }
+}
+@media (max-width: 600px) {
+  nav { display: none; }
+  #menu-btn { display: block !important; }
+}
+#menu-btn {
+  display: none; background: none; border: 1.5px solid rgba(255,255,255,.3);
+  border-radius: 4px; color: #fff; padding: .35rem .6rem; cursor: pointer;
+  font-size: .85rem;
+}
+#mobile-nav {
+  display: none; background: var(--navy2);
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding: .75rem;
+}
+#mobile-nav.open { display: flex; flex-wrap: wrap; gap: .25rem; }
+#mobile-nav a {
+  font-family: 'Syne', sans-serif; font-size: .8rem; font-weight: 600;
+  color: rgba(255,255,255,.7); padding: .4rem .85rem;
+  border-radius: 4px; text-decoration: none;
+}
+#mobile-nav a:hover { color: var(--orange); }
+
+/* ── SCROLL FADE ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
+}
+</style>
+
+<!-- ── TOP BAR ──────────────────────────────────────────── -->
+<div id="topbar">
+  <div class="container">
+    <div class="topbar-inner">
+      <div class="site-logo">AV<span>Future</span></div>
+      <nav id="main-nav">
+        <a href="#home" class="active">Home</a>
+        <a href="#white-paper">White Paper</a>
+        <a href="#exec-summary">Executive Summary</a>
+        <a href="#chapters">Chapters</a>
+        <a href="#downloads">Downloads</a>
+        <a href="#news">News &amp; Views</a>
+        <a href="#about">About</a>
+        <a href="#speaking">Speaking</a>
+      </nav>
+      <div class="nav-right">
+        <button id="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+        <button id="theme-btn" onclick="toggleTheme()">◑ Theme</button>
+      </div>
+    </div>
+  </div>
+  <div id="mobile-nav"></div>
+</div>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section id="home">
+  <div id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="container">
+      <div class="hero-content">
+        <div>
+          <div class="hero-kicker label">Autonomous Vehicles &amp; The Future of Transportation</div>
+          <h1 class="hero">A Comprehensive Policy &amp; Technology Analysis</h1>
+          <p class="hero-sub">
+            Twenty chapters. Forty years of education and policy experience. One clear argument:
+            the AV transition is underway — and the governance choices are still open.
+          </p>
+          <div class="hero-btns">
+            <a href="#white-paper" class="btn btn-primary">Explore the White Paper</a>
+            <a href="#downloads" class="btn btn-outline">Request a Copy</a>
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-card">
+            <span class="stat-num">$800B+</span>
+            <div class="stat-lbl">Projected annual AV economic impact by 2035</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">20</span>
+            <div class="stat-lbl">Chapters covering the full AV lifecycle</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">4M+</span>
+            <div class="stat-lbl">U.S. driving jobs at displacement risk</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audience strip -->
+  <div style="background:var(--navy);padding-block:.9rem;">
+    <div class="container">
+      <div style="display:flex;gap:2rem;flex-wrap:wrap;align-items:center;justify-content:center;">
+        <span class="label" style="color:rgba(255,255,255,.35);">Written for:</span>
+        <span style="color:rgba(255,255,255,.7);font-family:'Syne',sans-serif;font-size:.85rem;font-weight:600;">Manufacturers &amp; Technology Developers</span>
+        <span style="color:var(--orange);font-size:.7rem;">◆</span>
+        <span style="color:rgba(255,255,255,.7);font-family:'Syne',sans-serif;font-size:.85rem;font-weight:600;">Government &amp; Regulatory Bodies</span>
+        <span style="color:var(--orange);font-size:.7rem;">◆</span>
+        <span style="color:rgba(255,255,255,.7);font-family:'Syne',sans-serif;font-size:.85rem;font-weight:600;">Educational Institutions</span>
+        <span style="color:var(--orange);font-size:.7rem;">◆</span>
+        <span style="color:rgba(255,255,255,.7);font-family:'Syne',sans-serif;font-size:.85rem;font-weight:600;">Finance &amp; Adjacent Industries</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── WHY THIS MATTERS ──────────────────────────────────── -->
+<section id="white-paper" style="background:var(--bg);">
+  <div class="container">
+    <div class="sec-head fade-in">
+      <span class="label">The White Paper</span>
+      <h2>Why This Analysis Is Different</h2>
+      <p>Most AV commentary comes from industry insiders or technology journalists. This analysis was written by an independent educator and public policy practitioner — with front-row access to the world's most active AV deployment environment.</p>
+    </div>
+
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <span class="card-icon">🏙️</span>
+        <h3>Ground-Level Arizona Perspective</h3>
+        <p>Written in Scottsdale — home to Waymo operations, Intel Mobileye's research campus, and Aurora's freight corridor — not in a think tank removed from deployment reality.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🎓</span>
+        <h3>Independent Academic Voice</h3>
+        <p>No industry funding. No commercial interest. An educator's lens applied to a technology policy challenge — stakeholder implications assessed without advocacy for any constituency.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">📐</span>
+        <h3>Full Lifecycle Coverage</h3>
+        <p>From battery chemistry to rural healthcare access. From AI perception systems to municipal parking revenue. Twenty chapters designed to inform every stakeholder group simultaneously.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🌾</span>
+        <h3>The Rural Equity Argument</h3>
+        <p>The white paper's most distinctive contribution: a Rural AV Mobility Cooperative model — drawing on the Rural Electrification Administration precedent — for the communities markets will not serve.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">📚</span>
+        <h3>Academic Publication Foundation</h3>
+        <p>Developed as the research base for a forthcoming academic book series on AV transportation policy, technology, and societal impact. Rigorous sourcing throughout.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🗺️</span>
+        <h3>Actionable Recommendations</h3>
+        <p>Each chapter closes with a Stakeholder Implications section. Chapter 20 synthesizes a strategic timeline and five governing principles applicable to any jurisdiction.</p>
+      </div>
+    </div>
+
+    <div class="pull-quote fade-in" style="margin-top:2.5rem;">
+      <blockquote>"The AV transition is the most consequential transformation of American transportation since the Interstate Highway System was authorized in 1956."</blockquote>
+      <cite>— Autonomous Vehicles &amp; the Future of Transportation, Chapter 20</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXECUTIVE SUMMARY ─────────────────────────────────── -->
+<section id="exec-summary" style="background:var(--bg2);">
+  <div class="container">
+    <div class="sec-head fade-in">
+      <span class="label">Executive Summary</span>
+      <h2>The Argument in Brief</h2>
+    </div>
+
+    <div class="es-intro fade-in">
+      <h3>The Core Finding</h3>
+      <p style="color:rgba(255,255,255,.8);line-height:1.75;margin-bottom:.75rem;">
+        Autonomous vehicle deployment is no longer a future scenario — it is an active, accelerating transition with profound implications for transportation infrastructure, public safety, employment, fiscal policy, and social equity. The technology question has been substantially answered for bounded deployment domains. The governance question has not. The decisions made by manufacturers, governments, educational institutions, and adjacent industries in the 2024–2027 Foundation Period will determine whether the AV transition serves broad public benefit or concentrates its advantages among those already most advantaged.
+      </p>
+      <p style="color:rgba(255,255,255,.6);font-style:italic;font-size:.95rem;">
+        The white paper evaluates this transition across 20 interconnected domains, providing stakeholder-specific analysis and strategic recommendations for each.
+      </p>
+    </div>
+
+    <div class="tabs-wrap fade-in">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('es','technology')">Technology</button>
+        <button class="tab-btn" onclick="showTab('es','economy')">Economy &amp; Fiscal</button>
+        <button class="tab-btn" onclick="showTab('es','workforce')">Workforce</button>
+        <button class="tab-btn" onclick="showTab('es','equity')">Equity &amp; Safety</button>
+        <button class="tab-btn" onclick="showTab('es','policy')">Policy</button>
+      </div>
+
+      <div id="es-technology" class="tab-panel active es-grid" style="margin-top:1.25rem;">
+        <div class="es-item"><span class="ch-num">CH. 1</span><h4>Propulsion &amp; Fuel</h4><p>BEV dominates urban fleet deployment. FCEV wins long-haul freight. PHEV bridges rural gaps until 2030. Solid-state batteries commercialize 2027–2030, compressing the performance gap between platforms.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 3</span><h4>Artificial Intelligence</h4><p>AI is the system integrating all AV subsystems. The data flywheel — more miles generate better models — creates compounding competitive advantages for early deployment leaders.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 4</span><h4>Navigation &amp; Localization</h4><p>HD maps at 10cm resolution are required infrastructure — equivalent to roads. Rural America has no HD map coverage. This invisible gap is the primary constraint on geographic AV expansion.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 2</span><h4>AV Design</h4><p>Interior platform design becomes a primary competitive differentiator as propulsion converges. The reconfigurable AV cabin — productivity space, medical transport, freight — is a new product category.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 5</span><h4>Manufacturer Landscape</h4><p>$170B+ invested globally since 2010. The industry bifurcates between technology-first pure-plays (Waymo, Aurora) and legacy OEMs (GM, Ford, Toyota) racing to build comparable AI stacks.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 15</span><h4>Specialized Vehicles</h4><p>Autonomous trucking achieves commercial scale first — structured Interstate environments are an easier AV problem than urban streets. Aurora's Tucson–El Paso corridor is operational today.</p></div>
+      </div>
+
+      <div id="es-economy" class="tab-panel es-grid" style="margin-top:1.25rem;">
+        <div class="es-item"><span class="ch-num">CH. 12</span><h4>Financial Effects</h4><p>$800B+ projected annual economic impact by 2035. But state revenues from fuel taxes, traffic fines, parking, and vehicle registration will decline structurally — before replacement mechanisms exist.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 8</span><h4>Ownership Models</h4><p>The shift from individual vehicle sales to fleet-as-a-service transforms manufacturer revenue models. One-time sales become recurring software licensing and service contracts.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 9</span><h4>Dealership Repurposing</h4><p>17,000 U.S. dealerships face structural disruption. Those that reposition as AV service depots, EV charging hubs, or logistics facilities will capture residual value. Others face stranded asset exposure.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 7</span><h4>Parking &amp; Infrastructure</h4><p>800 million U.S. parking spaces face 20–40% demand reduction. Municipal governments holding zoning authority have the primary lever over this transformation. Planning must start now.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 6</span><h4>Roadway Infrastructure</h4><p>V2X communication on equipped corridors delivers 30–40% throughput gains. IIJA funding is available. Arizona's I-10 corridor between Phoenix and Tucson should be the priority deployment corridor.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 19</span><h4>Data &amp; Evidence</h4><p>Self-reported safety data, market projection variability, and employment impact uncertainty require careful interpretation. The paper documents evidence limitations throughout.</p></div>
+      </div>
+
+      <div id="es-workforce" class="tab-panel es-grid" style="margin-top:1.25rem;">
+        <div class="es-item"><span class="ch-num">CH. 13</span><h4>Employment Effects</h4><p>4M+ professional driving jobs at risk. Displacement accelerates 2030–2035. Retraining takes 2–4 years. Community college AV technician programs must launch by 2027 to meet peak demand.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 13</span><h4>Who Is Affected</h4><p>Disproportionate impact on workers without college degrees, veterans (overrepresented in trucking), immigrants, and rural workers. Trade Adjustment Assistance does not currently cover AV displacement.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 13</span><h4>New Jobs Created</h4><p>1.5–2M new AV-related jobs by 2035: AV maintenance technicians, fleet operations monitors, remote assistance operators, HD map surveyors, AV safety validation engineers.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 14</span><h4>Transit Workforce</h4><p>Transit operators, paratransit drivers, and school bus drivers face parallel displacement. FTA must update procurement frameworks and labor transition requirements for AV transit deployment.</p></div>
+      </div>
+
+      <div id="es-equity" class="tab-panel es-grid" style="margin-top:1.25rem;">
+        <div class="es-item"><span class="ch-num">CH. 11</span><h4>Vehicle Safety</h4><p>94% of crashes involve human error. AV systems in tested domains are measurably safer than human drivers. But no federal mandatory safety certification standard exists. NHTSA operates on voluntary guidance.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 10</span><h4>Rural &amp; Suburban Access</h4><p>46M rural Americans lack reliable transportation. Commercial AV operators follow revenue density — they will not serve rural America without deliberate policy investment. The REA cooperative model provides the blueprint.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 17</span><h4>Social Equity</h4><p>Without deliberate policy, AV benefits flow first to wealthy, urban, tech-connected populations. Digital divide, geographic divide, and workforce divide require Title VI compliance as a deployment condition.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 16</span><h4>Lifestyle Impacts</h4><p>45+ minutes of daily commute time recaptured per rider. Residential geography expands as autonomous commuting makes longer commutes comfortable and productive. Healthcare and leisure access improves.</p></div>
+      </div>
+
+      <div id="es-policy" class="tab-panel es-grid" style="margin-top:1.25rem;">
+        <div class="es-item"><span class="ch-num">CH. 18</span><h4>Government Partnerships</h4><p>No formal coordination framework exists between federal, state, and regional AV governance. Arizona — with USDOT, AZDOT, MAG, and Maricopa Community Colleges — has the relationships to build a national model.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 20</span><h4>Strategic Timeline</h4><p>2024–2027 Foundation, 2027–2030 Expansion, 2030–2035 Transformation, 2035+ Integration. Foundation Period decisions determine equity outcomes in all subsequent phases.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 11</span><h4>The Regulatory Gap</h4><p>NHTSA lacks the technical capacity to evaluate AI-based driving systems. Congress should direct mandatory certification rulemaking, incident reporting requirements, and AI explainability standards.</p></div>
+        <div class="es-item"><span class="ch-num">CH. 20</span><h4>Five Governing Principles</h4><p>Safety first. Equity by design. Fiscal planning before revenue falls. Workforce pipelines starting now. Coordinate across jurisdictions. These principles apply to any government at any level engaging the AV transition.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CHAPTERS ───────────────────────────────────────────── -->
+<section id="chapters" style="background:var(--bg);">
+  <div class="container">
+    <div class="sec-head fade-in">
+      <span class="label">Chapter Index</span>
+      <h2>Twenty Chapters — Full Lifecycle Coverage</h2>
+      <p>Each chapter includes a Stakeholder Implications section addressing manufacturers &amp; technology developers, government &amp; regulatory bodies, educational institutions, and finance &amp; adjacent industries.</p>
+    </div>
+
+    <div class="chapter-grid fade-in" id="chapter-list"></div>
+  </div>
+</section>
+
+<!-- ── DOWNLOADS ─────────────────────────────────────────── -->
+<section id="downloads" style="background:var(--bg2);">
+  <div class="container">
+    <div class="sec-head fade-in">
+      <span class="label">Downloads &amp; Resources</span>
+      <h2>Access the Full Analysis</h2>
+      <p>Documents are available upon request. Use the contact form below or email directly to receive a current copy.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:1rem;" class="fade-in">
+      <div class="dl-card">
+        <div class="dl-icon">📄</div>
+        <div class="dl-meta">
+          <h3>White Paper — Full Document</h3>
+          <p>Autonomous Vehicles &amp; the Future of Transportation — Version 4.8, October 2026. Twenty chapters, 1,050+ paragraphs, with Stakeholder Implications and strategic recommendations.</p>
+          <span class="dl-badge">DOCX</span>
+          <span class="dl-badge">~200 pages</span>
+          <span class="dl-badge">v4.8</span>
+          <br>
+          <a href="#speaking" class="btn btn-primary dl-btn">Request Document</a>
+        </div>
+      </div>
+      <div class="dl-card">
+        <div class="dl-icon">📊</div>
+        <div class="dl-meta">
+          <h3>Executive Presentation</h3>
+          <p>16-slide PowerPoint briefing with full presenter notes. Designed for government and industry executive audiences. 15–18 minute delivery. Tailored for USDOT, state DOTs, regional planning agencies, and educational institutions.</p>
+          <span class="dl-badge">PPTX</span>
+          <span class="dl-badge">16 slides</span>
+          <span class="dl-badge">With notes</span>
+          <br>
+          <a href="#speaking" class="btn btn-primary dl-btn">Request Presentation</a>
+        </div>
+      </div>
+      <div class="dl-card">
+        <div class="dl-icon">✉️</div>
+        <div class="dl-meta">
+          <h3>Policy Brief — Rural AV Mobility Cooperatives</h3>
+          <p>Focused brief on the Rural AV Mobility Cooperative model and its precedent in the Rural Electrification Administration. Prepared for rural planning agencies, cooperative organizations, and Congressional offices.</p>
+          <span class="dl-badge">DOCX</span>
+          <span class="dl-badge">Available on request</span>
+          <br>
+          <a href="#speaking" class="btn btn-primary dl-btn">Request Brief</a>
+        </div>
+      </div>
+      <div class="dl-card">
+        <div class="dl-icon">📬</div>
+        <div class="dl-meta">
+          <h3>Book Series — Coming Soon</h3>
+          <p>This white paper is the research foundation for a forthcoming book series on autonomous vehicle transportation policy, technology, and societal impact, to be published by an academic institution. Sign up for publication updates.</p>
+          <span class="dl-badge">Academic publication</span>
+          <span class="dl-badge">Forthcoming</span>
+          <br>
+          <a href="#speaking" class="btn btn-outline dl-btn" style="border-color:var(--blue2);color:var(--blue2);">Notify Me</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEWS & VIEWS ──────────────────────────────────────── -->
+<section id="news" style="background:var(--bg);">
+  <div class="container">
+    <div class="sec-head fade-in">
+      <span class="label">News &amp; Views</span>
+      <h2>AV Industry Developments &amp; Commentary</h2>
+      <p>Analysis and perspective on autonomous vehicle news as it relates to the themes of the white paper.</p>
+    </div>
+
+    <div class="grid-3 fade-in" id="news-grid"></div>
+
+    <div style="text-align:center;margin-top:2.5rem;" class="fade-in">
+      <p style="color:var(--fg2);font-style:italic;margin-bottom:1rem;">Commentary and updates added as the AV landscape evolves. Subscribe for new posts.</p>
+      <a href="#speaking" class="btn btn-outline" style="border-color:var(--blue2);color:var(--blue2);">Subscribe to Updates</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ─────────────────────────────────────────────── -->
+<section id="about" style="background:var(--bg2);">
+  <div class="container">
+    <div class="sec-head fade-in">
+      <span class="label">About the Author</span>
+      <h2>Dana G. Saar, MEd</h2>
+    </div>
+
+    <div class="about-layout fade-in">
+      <div class="author-aside">
+        <div class="author-avatar">👤</div>
+        <h3>Dana G. Saar, MEd</h3>
+        <div class="role">Educator · Policy Analyst · Author</div>
+        <div class="author-creds">
+          <div class="cred">Maricopa County Community College District — Governing Board</div>
+          <div class="cred">Scottsdale, Arizona</div>
+          <div class="cred">AV Policy Research — 2024–Present</div>
+          <div class="cred" style="color:var(--gold);">danasaar@msn.com</div>
+        </div>
+      </div>
+      <div class="about-body">
+        <p>Dana G. Saar, MEd, is an educator, strategic planner, and policy analyst with more than three decades of experience in higher education administration, curriculum development, and institutional strategy. He served as a member of the Maricopa County Community College District Governing Board — one of the largest community college systems in the United States — where he led workforce development initiatives, technology integration programs, and community partnership development across the Phoenix metropolitan region.</p>
+        <p>Mr. Saar's research and writing focus on the intersections of emerging technology, workforce transformation, and public policy — with particular attention to the educational and community development implications of large-scale economic transitions. His work on autonomous vehicle transportation reflects this interdisciplinary perspective, integrating technology analysis, economic impact assessment, policy evaluation, and stakeholder engagement strategy in a single comprehensive framework.</p>
+        <p>A longtime resident of the Phoenix metropolitan area — one of the most active AV deployment regions in the United States — Mr. Saar brings direct observational and community engagement experience to his AV analysis. His affiliation with institutions serving rural Arizona communities informs the white paper's distinctive emphasis on suburban and rural AV deployment equity, an aspect of the AV transition that receives less attention in industry-focused literature.</p>
+        <p>Mr. Saar holds a Master of Education degree and has completed advanced study in organizational leadership, strategic planning, and public policy. The white paper represents more than two years of independent research, and serves as the foundation for a forthcoming academic book series on autonomous vehicle transportation policy, technology, and societal impact.</p>
+
+        <div class="pull-quote" style="margin-top:1.5rem;">
+          <blockquote>"The communities with the greatest transportation need will be last to receive AV service — unless policy deliberately intervenes."</blockquote>
+          <cite>— Dana G. Saar, Chapter 10</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SPEAKING & CONTACT ─────────────────────────────────── -->
+<section id="speaking" style="background:var(--bg);">
+  <div class="container">
+    <div class="sec-head fade-in">
+      <span class="label">Speaking &amp; Contact</span>
+      <h2>Engage with the Research</h2>
+    </div>
+
+    <div class="contact-row fade-in">
+      <div>
+        <h3>Speaking Engagements</h3>
+        <p>Dana Saar is available for keynote presentations, policy briefings, academic lectures, and panel participation on autonomous vehicle transportation, workforce transition, and rural mobility equity.</p>
+        <p>Recent briefing audiences have included transportation agency executives, community college leadership, regional planning commissions, and elected officials.</p>
+        <div class="contact-detail"><strong>📧 Email</strong> <span>danasaar@msn.com</span></div>
+        <div class="contact-detail"><strong>📍 Location</strong> <span>Scottsdale, Arizona — available nationally</span></div>
+        <div class="contact-detail"><strong>🗂 Topics</strong> <span>AV Policy · Rural Equity · Workforce Transition · Education Strategy</span></div>
+      </div>
+      <div>
+        <h3>Request Documents</h3>
+        <p>The full white paper, executive presentation, and policy briefs are available at no charge to government agencies, academic institutions, and nonprofit organizations.</p>
+        <p style="margin-bottom:.5rem;">To request documents or schedule a presentation, contact directly:</p>
+        <div style="background:rgba(255,255,255,.08);border-radius:var(--r);padding:1.1rem;margin-top:.75rem;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:1.05rem;color:var(--gold);margin-bottom:.4rem;">danasaar@msn.com</div>
+          <div style="font-size:.85rem;color:rgba(255,255,255,.5);">Copy and paste the address above into your email client</div>
+        </div>
+        <p style="margin-top:1rem;font-size:.88rem;color:rgba(255,255,255,.5);">Responses typically within 2 business days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOSTING RECOMMENDATION ─────────────────────────────── -->
+<section style="background:var(--bg2);">
+  <div class="container">
+    <div class="sec-head fade-in">
+      <span class="label">Hosting Recommendation</span>
+      <h2>Where to Host This Site</h2>
+      <p>Based on your goals — professional author presence, academic credibility, low cost, and the ability to add content over time — here are the most appropriate options.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:.85rem;" class="fade-in">
+      <div class="hosting-option recommended">
+        <span class="hosting-badge">Recommended</span>
+        <div>
+          <h4>Squarespace — <span class="cost">~$16/mo with custom domain</span></h4>
+          <p>Best balance of professional design, ease of management, and academic credibility. No coding required for updates. Strong portfolio and publication templates. Built-in blog for News &amp; Views. Custom domain (e.g. <em>dgsaar.com</em> or <em>avfuturepolicy.com</em>) projects authority. PDF/DOCX downloads hosted directly. SSL included.</p>
+        </div>
+      </div>
+      <div class="hosting-option">
+        <div style="min-width:2.5rem;text-align:center;font-weight:700;color:var(--blue2);font-family:'Syne',sans-serif;font-size:.85rem;">2</div>
+        <div>
+          <h4>Wix — <span class="cost">~$17/mo with custom domain</span></h4>
+          <p>Similar to Squarespace in ease of use, slightly more flexible layout customization. Good for adding pages and updating content independently. SEO tools built in. Slightly less polished than Squarespace for academic/policy content but entirely suitable.</p>
+        </div>
+      </div>
+      <div class="hosting-option">
+        <div style="min-width:2.5rem;text-align:center;font-weight:700;color:var(--blue2);font-family:'Syne',sans-serif;font-size:.85rem;">3</div>
+        <div>
+          <h4>GitHub Pages + Custom Domain — <span class="cost">~$12/yr (domain only; hosting free)</span></h4>
+          <p>Lowest possible cost. This HTML file can be hosted here directly — no database, no platform fees. Requires minor technical comfort (uploading files via GitHub's web interface) or a one-time setup with a developer. Best choice if cost is the priority and content updates are infrequent.</p>
+        </div>
+      </div>
+      <div class="hosting-option">
+        <div style="min-width:2.5rem;text-align:center;font-weight:700;color:var(--blue2);font-family:'Syne',sans-serif;font-size:.85rem;">4</div>
+        <div>
+          <h4>Netlify (free tier) + Custom Domain — <span class="cost">~$12–15/yr</span></h4>
+          <p>Free hosting for static HTML sites (like this one). Drag-and-drop deployment. Custom domain connects easily. No coding required for deployment once set up. Best for a developer-assisted one-time setup with very low ongoing cost.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:calc(var(--r)*1.5);padding:1.5rem;margin-top:1.5rem;" class="fade-in">
+      <h3 style="margin-bottom:.5rem;">Domain Name Suggestion</h3>
+      <p style="color:var(--fg2);font-size:.9rem;">A custom domain significantly increases credibility for government and academic outreach. Suggested options:</p>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.75rem;">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:.9rem;background:var(--bg2);padding:.3rem .75rem;border-radius:4px;border:1px solid var(--border);">avfuturepolicy.com</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:.9rem;background:var(--bg2);padding:.3rem .75rem;border-radius:4px;border:1px solid var(--border);">dgsaar.com</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:.9rem;background:var(--bg2);padding:.3rem .75rem;border-radius:4px;border:1px solid var(--border);">avtransportationpolicy.com</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:.9rem;background:var(--bg2);padding:.3rem .75rem;border-radius:4px;border:1px solid var(--border);">saartransportation.com</span>
+      </div>
+      <p style="color:var(--fg3);font-size:.82rem;margin-top:.75rem;">Check availability at Namecheap or Google Domains (~$12–15/yr). Register before sending the USDOT letter and any other mailings.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">AV<span>Future</span> — Autonomous Vehicles &amp; the Future of Transportation</div>
+        <div style="margin-top:.35rem;">Dana G. Saar, MEd · Scottsdale, Arizona · danasaar@msn.com</div>
+      </div>
+      <div style="text-align:right;">
+        <div>White Paper v4.8 · October 2026</div>
+        <div style="margin-top:.25rem;font-size:.8rem;">Prepared for academic publication</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ── SCRIPTS ────────────────────────────────────────────── -->
+<script>
+// ── DATA ─────────────────────────────────────────────────────────────────────
+const CHAPTERS = [
+  { n:'01', title:'Propulsion & Fuel Technologies',
+    desc:'Compares BEV, FCEV, hybrid, and emerging solid-state platforms across range, infrastructure, lifecycle cost, environmental performance, and AV system integration. Includes a full comparative matrix.',
+    tags:['Technology','Infrastructure','Environment'] },
+  { n:'02', title:'AV Design Scenarios',
+    desc:'Interior platform design as a competitive differentiator — reconfigurable seating, productivity spaces, medical transport configurations, and the ADA accessibility imperative.',
+    tags:['Design','Manufacturing','Accessibility'] },
+  { n:'03', title:'Artificial Intelligence in AV Transportation',
+    desc:'Perception systems, planning algorithms, the data flywheel competitive dynamic, AI cybersecurity threats, and the governance gap in AI-based safety evaluation.',
+    tags:['AI','Technology','Safety','Cybersecurity'] },
+  { n:'04', title:'AV Navigation & Localization',
+    desc:'GNSS/RTK precision positioning, HD maps at 10cm resolution, IMU dead reckoning, free-space architecture for unmarked rural roads, and the competitive landscape in mapping technology.',
+    tags:['Technology','Infrastructure','Rural'] },
+  { n:'05', title:'AV Manufacturer Landscape',
+    desc:'Technology-first pure-plays vs. legacy OEM strategies, $170B+ global investment, make/buy/partner decisions, national security considerations, and supply chain concentration risks.',
+    tags:['Manufacturing','Investment','Policy'] },
+  { n:'06', title:'Roadway Infrastructure Renovations',
+    desc:'V2X communication deployment, lane marking standards, dedicated AV corridor economics, IIJA funding opportunities, and the 30–40% throughput gain from equipped corridors.',
+    tags:['Infrastructure','Government','Investment'] },
+  { n:'07', title:'Infrastructure: Parking, Roadway Design & Fueling',
+    desc:'800M U.S. parking spaces facing 20–40% demand reduction, curb management policy, AV depot charging infrastructure, and the municipal fiscal exposure from parking revenue decline.',
+    tags:['Infrastructure','Urban Planning','Fiscal'] },
+  { n:'08', title:'Ownership Models',
+    desc:'From individual vehicle sales to Mobility-as-a-Service, subscription models, hybrid income-sharing arrangements, and the financial institution implications of the ownership transition.',
+    tags:['Finance','Policy','Consumer'] },
+  { n:'09', title:'Dealership Repurposing Scenarios',
+    desc:'17,000 U.S. dealerships navigating the transition — AV service depot conversion, EV charging hub repurposing, state franchise law constraints, and economic development pathways.',
+    tags:['Real Estate','Finance','Policy'] },
+  { n:'10', title:'Autonomous Vehicles in Suburban & Rural America',
+    desc:'The rural access equity gap, healthcare and NEMT applications, the Rural AV Mobility Cooperative model, REA precedent, federal funding pathways, and Arizona-specific deployment barriers.',
+    tags:['Equity','Rural','Healthcare','Government'] },
+  { n:'11', title:'Vehicle & Human Safety',
+    desc:'AV safety performance data, SAE Level definitions, ISO 26262/SOTIF standards, the absence of federal certification requirements, and the trust consequences of high-profile failures.',
+    tags:['Safety','Regulation','Policy'] },
+  { n:'12', title:'Financial Effects',
+    desc:'$800B+ projected annual impact, state and local revenue at risk (fuel tax, fines, parking), VMT fee replacement models, insurance market transformation, and investor portfolio exposure.',
+    tags:['Finance','Fiscal Policy','Insurance'] },
+  { n:'13', title:'AV Effects on Employment',
+    desc:'4M+ jobs at risk, affected worker demographics, Trade Adjustment Assistance gaps, 1.5–2M new jobs created, community college retraining pipelines, and union engagement strategies.',
+    tags:['Workforce','Education','Equity','Labor'] },
+  { n:'14', title:'AV Effects on Mass Transportation',
+    desc:'First/last mile AV solutions, autonomous bus and paratransit deployment, $6.3B ADA paratransit cost reduction potential, FTA grant framework reform, and Valley Metro integration.',
+    tags:['Transit','Government','Accessibility'] },
+  { n:'15', title:'Specialized Vehicle Types',
+    desc:'Autonomous long-haul trucking (Aurora I-10 corridor), last-mile delivery, school buses, agricultural equipment, emergency response, and the specialized vehicle regulatory environment.',
+    tags:['Commercial','Agriculture','Safety'] },
+  { n:'16', title:'AV Effects on Human Lifestyles',
+    desc:'45+ minutes of recaptured daily commute time, residential geography expansion, healthcare access improvement, entertainment venue accessibility, and consumer behavior implications.',
+    tags:['Lifestyle','Consumer','Urban Planning'] },
+  { n:'17', title:'AV Effects on Social Issues',
+    desc:'Digital divide risk, AV surveillance and passenger privacy, algorithmic bias in pedestrian detection, community displacement from land use changes, and Title VI compliance requirements.',
+    tags:['Equity','Privacy','Civil Rights','Policy'] },
+  { n:'18', title:'Government Partnerships with AV Entities',
+    desc:'Federal, state, and regional role matrix, the absence of a coordinating framework, technical capacity gaps at regulatory agencies, standards development participation, and a proposed Arizona model.',
+    tags:['Government','Policy','Regulation'] },
+  { n:'19', title:'Data Sources & References',
+    desc:'Comprehensive bibliography organized by chapter, with a critical note on evidence standards: self-reported safety data limitations, market projection variability, and employment estimate uncertainty ranges.',
+    tags:['Research','Evidence'] },
+  { n:'20', title:'Synthesis & Strategic Recommendations',
+    desc:'Stakeholder action matrices for all four groups, a four-phase strategic timeline (2024–2035+), five governing principles, and a closing perspective on governance as the defining AV transition challenge.',
+    tags:['Policy','Strategy','Recommendations'] },
+];
+
+const NEWS = [
+  { emoji:'🚗', cat:'Deployment', date:'Sept 2026',
+    title:'Waymo Expands Phoenix Service Zone to Additional East Valley Corridors',
+    body:'Waymo announced expansion of its fully driverless commercial service area in the Phoenix metro, adding coverage in Mesa and Gilbert — a direct validation of the Foundation Period deployment trajectory outlined in Chapter 20.' },
+  { emoji:'🛣️', cat:'Infrastructure', date:'Aug 2026',
+    title:'FHWA Releases V2X Deployment Guidance Under IIJA Authorization',
+    body:'The Federal Highway Administration issued technical guidance for V2X infrastructure deployment, drawing on C-V2X specifications. The I-10 Phoenix–Tucson corridor aligns closely with FHWA\'s priority freight corridor criteria.' },
+  { emoji:'⚖️', cat:'Regulation', date:'Jul 2026',
+    title:'NHTSA Opens Comment Period on AV Automated Driving System Safety Framework',
+    body:'NHTSA\'s Automated Vehicle Safety Framework ANPRM opens a path toward mandatory certification requirements — addressing the regulatory gap identified in Chapter 11. The comment period closes December 2026.' },
+  { emoji:'🎓', cat:'Education', date:'Jul 2026',
+    title:'NSF Announces New ATE Grant Cycle for Emerging Technology Workforce Programs',
+    body:'The National Science Foundation\'s Advanced Technological Education program opened its FY 2027 cycle with expanded eligibility for AV and EV technician curriculum development at community colleges.' },
+  { emoji:'🌾', cat:'Rural Access', date:'Jun 2026',
+    title:'Senate Agriculture Committee Holds First Hearing on Rural AV Mobility',
+    body:'Senators from rural states convened the first Congressional hearing specifically addressing autonomous vehicle access in rural communities — citing the absence of commercial AV service in areas with acute transportation need.' },
+  { emoji:'💼', cat:'Workforce', date:'May 2026',
+    title:'Teamsters and Aurora Reach Preliminary Agreement on Autonomous Trucking Transition Protocol',
+    body:'The International Brotherhood of Teamsters announced a framework agreement with Aurora providing transition protections, retraining access, and extended benefits for drivers displaced by autonomous trucking deployment.' },
+];
+
+// ── RENDER CHAPTERS ───────────────────────────────────────────────────────────
+function renderChapters() {
+  const grid = document.getElementById('chapter-list');
+  grid.innerHTML = CHAPTERS.map((ch, i) => `
+    <div class="chapter-item" id="ch-${i}">
+      <button class="chapter-btn" onclick="toggleChapter(${i})">
+        <span class="ch-num">Ch.${ch.n}</span>
+        <span class="ch-title">${ch.title}</span>
+        <span class="ch-arrow">▶</span>
+      </button>
+      <div class="chapter-body" id="chb-${i}">
+        <p style="padding-top:.65rem;">${ch.desc}</p>
+        <div class="ch-tags">${ch.tags.map(t=>`<span class="ch-tag">${t}</span>`).join('')}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleChapter(i) {
+  const item = document.getElementById('ch-'+i);
+  const body = document.getElementById('chb-'+i);
+  const isOpen = item.classList.contains('open');
+  item.classList.toggle('open', !isOpen);
+  body.classList.toggle('open', !isOpen);
+}
+
+// ── RENDER NEWS ───────────────────────────────────────────────────────────────
+function renderNews() {
+  const grid = document.getElementById('news-grid');
+  grid.innerHTML = NEWS.map(n => `
+    <div class="news-card">
+      <div class="news-img"><div class="news-img-inner">${n.emoji}</div></div>
+      <div class="news-body">
+        <span class="label">${n.cat}</span>
+        <h3>${n.title}</h3>
+        <p>${n.body}</p>
+        <div class="news-meta">
+          <span class="news-date">${n.date}</span>
+          <span class="read-more">Commentary →</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── TABS ─────────────────────────────────────────────────────────────────────
+function showTab(group, id) {
+  const panels = document.querySelectorAll(`[id^="${group}-"]`);
+  const btns = document.querySelectorAll(`[onclick^="showTab('${group}"]`);
+  panels.forEach(p => p.classList.remove('active'));
+  btns.forEach(b => b.classList.remove('active'));
+  const target = document.getElementById(`${group}-${id}`);
+  if (target) target.classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── THEME ─────────────────────────────────────────────────────────────────────
+function toggleTheme() {
+  const root = document.documentElement;
+  const current = root.getAttribute('data-theme');
+  root.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+  try { localStorage.setItem('avf-theme', root.getAttribute('data-theme')); } catch(e) {}
+}
+try {
+  const saved = localStorage.getItem('avf-theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+} catch(e) {}
+
+// ── MOBILE NAV ────────────────────────────────────────────────────────────────
+function toggleMenu() {
+  const mn = document.getElementById('mobile-nav');
+  if (!mn.innerHTML) {
+    mn.innerHTML = document.getElementById('main-nav').innerHTML;
+  }
+  mn.classList.toggle('open');
+}
+
+// ── HERO CANVAS ───────────────────────────────────────────────────────────────
+function initCanvas() {
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles;
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  function makeParticle() {
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: -0.3 - Math.random() * 0.6,
+      size: 1 + Math.random() * 2,
+      alpha: 0.3 + Math.random() * 0.5,
+      type: Math.random() > 0.85 ? 'node' : 'dot'
+    };
+  }
+
+  function init() {
+    resize();
+    particles = Array.from({length: 80}, makeParticle);
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    // draw connections
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const d = Math.sqrt(dx*dx + dy*dy);
+        if (d < 90) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(0,122,204,${0.18*(1-d/90)})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+    }
+    // draw particles
+    particles.forEach(p => {
+      ctx.beginPath();
+      if (p.type === 'node') {
+        ctx.arc(p.x, p.y, p.size + 1, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(245,124,0,${p.alpha})`;
+      } else {
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0,119,204,${p.alpha * 0.6})`;
+      }
+      ctx.fill();
+      // move
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.y < -10) { p.y = H + 5; p.x = Math.random() * W; }
+      if (p.x < -10) p.x = W + 5;
+      if (p.x > W + 10) p.x = -5;
+    });
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => { resize(); });
+  init();
+  draw();
+}
+
+// ── SCROLL HIGHLIGHT NAV ──────────────────────────────────────────────────────
+function initNavHighlight() {
+  const sections = ['home','white-paper','exec-summary','chapters','downloads','news','about','speaking'];
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        const link = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+}
+
+// ── FADE IN ON SCROLL ─────────────────────────────────────────────────────────
+function initFade() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderChapters();
+  renderNews();
+  initCanvas();
+  initNavHighlight();
+  initFade();
+});
+</script>
+
+</body></html>
